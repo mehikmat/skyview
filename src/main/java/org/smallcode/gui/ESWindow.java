@@ -1,48 +1,8 @@
 package org.smallcode.gui;
 
-import org.elasticsearch.action.*;
-import org.elasticsearch.action.Action;
-import org.elasticsearch.action.bulk.BulkRequest;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.action.count.CountRequest;
-import org.elasticsearch.action.count.CountRequestBuilder;
-import org.elasticsearch.action.count.CountResponse;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.delete.DeleteRequestBuilder;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.deletebyquery.DeleteByQueryRequest;
-import org.elasticsearch.action.deletebyquery.DeleteByQueryRequestBuilder;
-import org.elasticsearch.action.deletebyquery.DeleteByQueryResponse;
-import org.elasticsearch.action.explain.ExplainRequest;
-import org.elasticsearch.action.explain.ExplainRequestBuilder;
-import org.elasticsearch.action.explain.ExplainResponse;
-import org.elasticsearch.action.get.*;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.mlt.MoreLikeThisRequest;
-import org.elasticsearch.action.mlt.MoreLikeThisRequestBuilder;
-import org.elasticsearch.action.percolate.PercolateRequest;
-import org.elasticsearch.action.percolate.PercolateRequestBuilder;
-import org.elasticsearch.action.percolate.PercolateResponse;
-import org.elasticsearch.action.search.*;
-import org.elasticsearch.action.suggest.SuggestRequest;
-import org.elasticsearch.action.suggest.SuggestRequestBuilder;
-import org.elasticsearch.action.suggest.SuggestResponse;
-import org.elasticsearch.action.update.UpdateRequest;
-import org.elasticsearch.action.update.UpdateRequestBuilder;
-import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.AdminClient;
-import org.elasticsearch.client.Client;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.client.internal.InternalClient;
-import org.elasticsearch.common.Nullable;
-import org.elasticsearch.index.mapper.SourceToParse;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.node.Node;
-import org.elasticsearch.node.NodeBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,24 +10,22 @@ import org.smallcode.net.ESQueries;
 import org.smallcode.net.JSONClient;
 
 import javax.swing.*;
-import javax.swing.table.*;
-
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.net.URLEncoder;
 import java.net.UnknownHostException;
-import java.nio.file.FileSystems;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
-import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.smallcode.gui.StringConstants.*;
 
 /**
@@ -216,9 +174,18 @@ public class ESWindow extends JFrame {
                      InternalClient client=mock(InternalClient.class);
                      SearchRequestBuilder builder=new SearchRequestBuilder(client);
                      builder.setQuery(QueryBuilders.matchAllQuery());
-                     builder.addField(field.getText());
 
-                     String query=builder.toString();
+                     String query=null;
+                     String a=field.getText();
+                     if(a.contains("q=")){
+                         String[] ar=a.split("=");
+                         query = ar[1];
+                     }else {
+                         builder.addField(field.getText());
+                         query = builder.toString() ;
+
+                     }
+
 
                      String pattern = "\\ |\\n";
                      query=query.replaceAll(pattern,"");
@@ -397,7 +364,7 @@ public class ESWindow extends JFrame {
     }
 
     public void  refreshWindow(){
-        revalidate();
+        validate();
         repaint();
     }
 
