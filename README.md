@@ -6,5 +6,8 @@ skyview
 How to run
 ==========
 $ git clone http://github.com/mehikmat/skyview
+
 $ cd skyview
+
 $ ./developer-start.sh
+
