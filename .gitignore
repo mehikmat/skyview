@@ -1,2 +1,5 @@
 .idea
 .skyview.iml
+*.iml*
+build
+target
