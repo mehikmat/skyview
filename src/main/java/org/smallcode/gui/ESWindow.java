@@ -84,8 +84,8 @@ public class ESWindow extends JFrame {
         goButton=new JButton("Hit");
         goButton.setActionCommand("Hit");
 
-        recordType=new JTextField("Eligibility");
-        field=new JTextField("memberId");
+        recordType=new JTextField("RecordType...");
+        field=new JTextField("Query string..");
         export=new JButton("Export");
         export.setActionCommand("Export");
 
@@ -181,7 +181,7 @@ public class ESWindow extends JFrame {
                          String[] ar=a.split("=");
                          query = ar[1];
                      }else {
-                         builder.addField(field.getText());
+                         builder.setSource(field.getText());
                          query = builder.toString() ;
 
                      }
@@ -190,7 +190,7 @@ public class ESWindow extends JFrame {
                      String pattern = "\\ |\\n";
                      query=query.replaceAll(pattern,"");
 
-                     String restUrl=addressBar.getText() +"/"+index+"/"+type+"/_search?size=40&source="+query;
+                     String restUrl=addressBar.getText() +"/"+index+"/"+type+"/_search?size=1000&source="+query;
 
                      System.out.println("REST URL::"+query);
 
@@ -204,9 +204,9 @@ public class ESWindow extends JFrame {
 
                      for (int i=0;i< jsonArray.length();i++) {
                          JSONObject jsonObject1= jsonArray.getJSONObject(i);
-                         jsonObject1= (JSONObject) jsonObject1.get("fields");
-                         String value= (String) jsonObject1.get(field.getText());
-                         values.add(value);
+                         jsonObject1= (JSONObject) jsonObject1.get("_source");
+                         Object value=  jsonObject1.get(field.getText());
+                         values.add(value.toString());
 
                      }
                      saveData(values);
