@@ -3,8 +3,8 @@ skyview [![endorse](https://api.coderwall.com/mehikmat/endorsecount.png)](https:
 
 Java utility tool to export data from elasticsearch to text file
 
-How to run
-==========
+How to run this app
+===================
 $ git clone http://github.com/mehikmat/skyview
 
 $ cd skyview
