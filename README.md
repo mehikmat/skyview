@@ -1,4 +1,4 @@
-skyview [![endorse](https://api.coderwall.com/mehikmat/endorsecount.png)](https://coderwall.com/mehikmat)
+skyview [![endorse](https://api.coderwall.com/mehikmat/endorsecount.png)](https://coderwall.com/mehikmat) [![Build Status](https://travis-ci.org/mehikmat/skyview.svg?branch=master)](https://travis-ci.org/mehikmat/skyview)
 =======
 
 Java utility tool to export data from elasticsearch to text file
