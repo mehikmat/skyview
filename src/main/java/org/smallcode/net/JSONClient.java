@@ -5,6 +5,10 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.*;
 
+/**
+* @author Hikmat Dhamee
+* @email me.hemant.available@gmail.com
+*/
 public class JSONClient {
 
     public static JSONObject fetch(String address) throws IOException, JSONException ,UnknownHostException,ConnectException {
