@@ -1,11 +1,8 @@
 package org.smallcode.net;
 
 /**
- * Created with IntelliJ IDEA.
- * User: deerwalk
- * Date: 9/11/13
- * Time: 12:47 PM
- * To change this template use File | Settings | File Templates.
+ * @author Hikmat Dhamee
+ * @email me.hemant.available@gmail.com
  */
 public class ESQueries {
     public static final String CLUSTER_HEALTH="/_cluster/health";
